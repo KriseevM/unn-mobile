@@ -1,0 +1,20 @@
+# This is a basic workflow that is manually triggered
+
+name: Merge on release
+
+on:
+  create:
+    ref_type: tag
+    branches: develop
+
+jobs:
+  merge-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Merge develop -> main
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          target_branch: main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
